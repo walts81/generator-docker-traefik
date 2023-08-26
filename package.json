@@ -1,6 +1,6 @@
 {
   "name": "@walts81/generator-docker-traefik",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Creates a docker-compose yaml file with traefik labels built-in",
   "homepage": "https://github.com/walts81/generator-docker-traefik",
   "author": {
