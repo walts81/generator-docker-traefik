@@ -1,0 +1,6 @@
+- "traefik.http.routers.<%= serviceNameSlug %>-<% if (ext) { %>ext<% } else { %>int<% } %>.entrypoints=https"
+      - "traefik.http.routers.<%= serviceNameSlug %>-<% if (ext) { %>ext<% } else { %>int<% } %>.rule=Host(`<%= subdomain %>.<%= domain %>`)"
+      - "traefik.http.routers.<%= serviceNameSlug %>-<% if (ext) { %>ext<% } else { %>int<% } %>.tls=true"
+      - "traefik.http.routers.<%= serviceNameSlug %>-<% if (ext) { %>ext<% } else { %>int<% } %>.middlewares=chain-<% if (ext && requiresAuth) { %>o<% } else { %>no-<% } %>auth@file"
+      - "traefik.http.routers.<%= serviceNameSlug %>-<% if (ext) { %>ext<% } else { %>int<% } %>.service=<%= serviceNameSlug %>-<% if (ext) { %>ext<% } else { %>int<% } %>-svc"
+      - "traefik.http.services.<%= serviceNameSlug %>-<% if (ext) { %>ext<% } else { %>int<% } %>-svc.loadbalancer.server.port=<%= servicePort || '80' %>"

@@ -1,0 +1,20 @@
+version: "<%= composeVersion %>"
+
+services:
+
+  <%= serviceNameSlug %>:
+    image: <%= imageName %>
+    container_name: <%= containerName %>
+    restart: unless-stopped
+    <% if (hasAppData) { %>volumes:
+      - <%= appDataDir %><%= serviceNameSlug %>:/data<% } %>
+    networks:
+      - t2_proxy
+    labels:
+      - "traefik.enable=true"
+      <% if (hasExternal) { %><%- include('./traefik-labels.yaml', { ext: true, servicePort: servicePort, requiresAuth: requiresAuth, subdomain: subdomain, domain: cloudDomain }); %><% } -%>
+      <% if (hasInternal) { %><%- include('./traefik-labels.yaml', { ext: false, servicePort: servicePort, requiresAuth: false, subdomain: subdomain, domain: localDomain }); %><% } %>
+
+networks:
+  t2_proxy:
+    external: true
